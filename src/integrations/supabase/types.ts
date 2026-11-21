@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      inquiries: {
+        Row: {
+          budget: string
+          company: string
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          notes: string
+          service: string
+          status: string
+          timeline: string
+          updated_at: string
+        }
+        Insert: {
+          budget: string
+          company?: string
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          notes?: string
+          service: string
+          status?: string
+          timeline?: string
+          updated_at?: string
+        }
+        Update: {
+          budget?: string
+          company?: string
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          notes?: string
+          service?: string
+          status?: string
+          timeline?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       projects: {
         Row: {
           blurb: string

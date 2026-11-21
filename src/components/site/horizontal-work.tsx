@@ -102,7 +102,7 @@ export function HorizontalWork({ items }: { items: ProjectRecord[] }) {
         </div>
         <div className="px-5 md:px-10">
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10 backdrop-blur-sm">
-            <div ref={bar} className="h-full origin-left rounded-full bg-gradient-to-r from-primary via-amber-400 to-primary shadow-[0_0_12px_rgba(255,107,0,0.6)]" style={{ transform: "scaleX(0)" }} />
+            <div ref={bar} className="h-full origin-left rounded-full bg-gradient-to-r from-primary via-fuchsia-400 to-primary shadow-[0_0_12px_rgba(168,85,247,0.6)]" style={{ transform: "scaleX(0)" }} />
           </div>
           <p className="mt-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             Scroll to travel — {featured.length} highlights
@@ -117,7 +117,7 @@ function HeaderRow({ count }: { count: number }) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-4">
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary drop-shadow-[0_0_8px_rgba(255,107,0,0.4)]">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary drop-shadow-[0_0_8px_rgba(168,85,247,0.4)]">
           Selected work — {count} projects
         </p>
         <h2 className="mt-1 font-display text-3xl leading-none md:text-5xl lg:text-6xl">
@@ -142,7 +142,7 @@ function Card({ project }: { project: ProjectRecord }) {
       params={{ slug: project.slug }}
       data-cursor="View"
       data-hcard
-      className="glass-card-interactive group block w-[74vw] shrink-0 overflow-hidden rounded-3xl sm:w-[46vw] lg:w-[28vw]"
+      className="glass-card-interactive group block w-[82vw] shrink-0 overflow-hidden rounded-3xl sm:w-[46vw] lg:w-[28vw]"
     >
       <div className="overflow-hidden">
         <img
@@ -162,8 +162,8 @@ function Card({ project }: { project: ProjectRecord }) {
             {project.category} · {project.year}
           </p>
         </div>
-        <span className="flex size-8 md:size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 font-display text-sm md:text-base text-primary shadow-[0_0_10px_rgba(255,107,0,0.2)] transition-all group-hover:scale-110 group-hover:border-primary/60 group-hover:bg-primary group-hover:text-primary-foreground">
-          →
+        <span className="flex size-8 md:size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-primary shadow-[0_0_10px_rgba(168,85,247,0.2)] transition-all group-hover:scale-110 group-hover:border-primary/60 group-hover:bg-primary group-hover:text-primary-foreground">
+          <ArrowRight className="size-4" />
         </span>
       </div>
     </Link>
@@ -175,7 +175,7 @@ function EndCard({ count }: { count: number }) {
     <Link
       to="/work"
       data-hcard
-      className="glass-panel group flex w-[70vw] shrink-0 flex-col items-start justify-center rounded-3xl border border-primary/30 p-8 text-foreground shadow-[0_0_30px_rgba(255,107,0,0.15)] transition-all hover:border-primary/60 hover:shadow-[0_0_40px_rgba(255,107,0,0.3)] sm:w-[40vw] lg:w-[26vw]"
+      className="glass-panel group flex w-[82vw] shrink-0 flex-col items-start justify-center rounded-3xl border border-primary/30 p-7 sm:p-8 text-foreground shadow-[0_0_30px_rgba(168,85,247,0.15)] transition-all hover:border-primary/60 hover:shadow-[0_0_40px_rgba(168,85,247,0.3)] sm:w-[46vw] lg:w-[26vw]"
     >
       <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
         {count} case studies
@@ -183,7 +183,7 @@ function EndCard({ count }: { count: number }) {
       <p className="mt-4 font-display text-5xl leading-[0.95] md:text-6xl">
         See the full <span className="italic text-primary">archive</span>
       </p>
-      <span className="mt-8 inline-flex items-center gap-3 rounded-full bg-primary px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-primary-foreground shadow-[0_0_20px_rgba(255,107,0,0.4)] transition-all group-hover:scale-105">
+      <span className="mt-8 inline-flex items-center gap-3 rounded-full bg-primary px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-primary-foreground shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all group-hover:scale-105">
         Open work <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
       </span>
     </Link>

@@ -91,7 +91,7 @@ function ProjectTile({ project, index }: { project: ProjectRecord; index: number
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full p-5 transition-transform duration-400 ease-out group-hover:translate-y-0">
-            <p className="font-display text-2xl text-foreground drop-shadow-[0_0_12px_rgba(255,107,0,0.5)]">{project.title}</p>
+            <p className="font-display text-2xl text-foreground drop-shadow-[0_0_12px_rgba(168,85,247,0.5)]">{project.title}</p>
             <p className="text-xs uppercase tracking-[0.18em] text-primary">
               {project.client}
             </p>
@@ -104,7 +104,7 @@ function ProjectTile({ project, index }: { project: ProjectRecord; index: number
               {project.category} · {project.year}
             </p>
           </div>
-          <div className="flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-muted-foreground transition-all group-hover:border-primary/50 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[0_0_15px_rgba(255,107,0,0.4)]">
+          <div className="flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-muted-foreground transition-all group-hover:border-primary/50 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]">
             <ArrowUpRight className="size-4 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </div>
         </div>

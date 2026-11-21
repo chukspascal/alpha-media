@@ -54,8 +54,8 @@ export function Magnetic({
   const classes = cn(
     "relative inline-flex items-center justify-center rounded-full px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] transition-all duration-300",
     variant === "solid"
-      ? "bg-gradient-to-r from-primary to-amber-500 text-primary-foreground shadow-[0_0_25px_rgba(255,107,0,0.35)] hover:shadow-[0_0_35px_rgba(255,107,0,0.6)] hover:scale-105"
-      : "glass-pill border border-white/15 text-foreground hover:bg-white/10 hover:border-primary/50 hover:shadow-[0_0_25px_rgba(255,107,0,0.25)] hover:scale-105",
+      ? "bg-gradient-to-r from-primary to-violet-500 text-primary-foreground shadow-[0_0_25px_rgba(168,85,247,0.35)] hover:shadow-[0_0_35px_rgba(168,85,247,0.6)] hover:scale-105"
+      : "glass-pill border border-white/15 text-foreground hover:bg-white/10 hover:border-primary/50 hover:shadow-[0_0_25px_rgba(168,85,247,0.25)] hover:scale-105",
     className,
   );
 

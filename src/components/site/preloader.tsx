@@ -52,7 +52,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
       className="fixed inset-0 z-[95] flex flex-col justify-between bg-foreground px-5 py-8 text-background md:px-10 md:py-10"
     >
       <p className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
-        Graphic design studio
+        Creative &amp; Digital Agency
       </p>
       <div data-pl-fade>
         <h1 className="overflow-hidden font-display text-[15vw] leading-[1.05] md:text-[9vw]">
@@ -76,7 +76,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
         </div>
       </div>
       <p className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
-        Brand · Print · Motion
+        Brand · Digital · Motion
       </p>
     </div>
   );

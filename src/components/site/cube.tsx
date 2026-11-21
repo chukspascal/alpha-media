@@ -62,10 +62,10 @@ export function Cube({ className, size = 200 }: { className?: string; size?: num
         {faces.map((f) => (
           <div
             key={f.label}
-            className="absolute inset-0 flex items-center justify-center rounded-2xl border border-primary/40 bg-white/[0.03] backdrop-blur-md font-display text-6xl text-primary shadow-[inset_0_0_25px_rgba(255,107,0,0.2),0_0_20px_rgba(255,107,0,0.2)]"
+            className="absolute inset-0 flex items-center justify-center rounded-2xl border border-primary/40 bg-white/[0.03] backdrop-blur-md font-display text-6xl text-primary shadow-[inset_0_0_25px_rgba(168,85,247,0.2),0_0_20px_rgba(168,85,247,0.2)]"
             style={{ transform: f.t }}
           >
-            <span className="drop-shadow-[0_0_15px_rgba(255,107,0,0.8)]">{f.label}</span>
+            <span className="drop-shadow-[0_0_15px_rgba(168,85,247,0.8)]">{f.label}</span>
           </div>
         ))}
       </div>

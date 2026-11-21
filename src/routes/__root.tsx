@@ -31,7 +31,7 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-24">
       <div className="glass-panel w-full max-w-md rounded-3xl p-10 text-center shadow-2xl">
-        <h1 className="font-display text-8xl text-primary drop-shadow-[0_0_25px_rgba(255,107,0,0.4)]">404</h1>
+        <h1 className="font-display text-8xl text-primary drop-shadow-[0_0_25px_rgba(168,85,247,0.4)]">404</h1>
         <h2 className="mt-4 text-2xl font-medium tracking-tight">Page not found</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           The page you're looking for doesn't exist or has been moved.
@@ -90,19 +90,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Alph@ Media — Graphic Design Studio" },
+      { title: "Alph@ Media — Principal-Led Creative & Digital Agency" },
       {
         name: "description",
         content:
-          "Independent graphic design studio building loud brand identities, packaging, posters and motion for ambitious clients.",
+          "Principal-led creative and digital agency crafting brand architecture, digital flagships, and motion systems for ambitious companies worldwide.",
       },
       { name: "author", content: "Alph@ Media" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:title", content: "Alph@ Media — Graphic Design Studio" },
-      { name: "twitter:title", content: "Alph@ Media — Graphic Design Studio" },
-      { property: "og:description", content: "Independent graphic design studio building loud brand identities, packaging, posters and motion for ambitious clients." },
-      { name: "twitter:description", content: "Independent graphic design studio building loud brand identities, packaging, posters and motion for ambitious clients." },
+      { property: "og:title", content: "Alph@ Media — Principal-Led Creative & Digital Agency" },
+      { name: "twitter:title", content: "Alph@ Media — Principal-Led Creative & Digital Agency" },
+      {
+        property: "og:description",
+        content:
+          "Principal-led creative and digital agency crafting brand architecture, digital flagships, and motion systems for ambitious companies worldwide.",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Principal-led creative and digital agency crafting brand architecture, digital flagships, and motion systems for ambitious companies worldwide.",
+      },
+      { property: "og:image", content: "/favicon.ico" },
+      { name: "twitter:image", content: "/favicon.ico" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -123,16 +133,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
-      <body className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
-        {/* Ambient Glow Lights in Background */}
+      <body
+        suppressHydrationWarning
+        className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground"
+      >
+        {/* Editorial Noir Film Grain & Subtle Architectural Spotlight */}
+        <div aria-hidden className="film-grain pointer-events-none fixed inset-0 z-[1]" />
         <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-          <div className="absolute -top-40 -left-40 size-[600px] rounded-full bg-primary/10 blur-[140px]" />
-          <div className="absolute top-1/3 -right-40 size-[700px] rounded-full bg-indigo-500/10 blur-[160px]" />
-          <div className="absolute -bottom-40 left-1/4 size-[650px] rounded-full bg-amber-500/8 blur-[150px]" />
+          <div className="absolute -top-64 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-primary/[0.06] blur-[160px]" />
         </div>
         <div className="relative z-10">
           {children}
@@ -213,7 +225,7 @@ function RootComponent() {
     [router],
   );
 
-  // Intercept internal link clicks → curtain transition.
+  // Intercept internal link clicks â†’ curtain transition.
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {

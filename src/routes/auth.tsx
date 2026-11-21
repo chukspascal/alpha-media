@@ -59,7 +59,7 @@ function AuthPage() {
     <div className="mx-auto max-w-md px-5 py-24">
       <div className="text-center">
         <h1 className="font-display text-5xl leading-none md:text-6xl">
-          Studio <span className="italic text-primary drop-shadow-[0_0_15px_rgba(255,107,0,0.5)]">access</span>
+          Studio <span className="italic text-primary drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">access</span>
         </h1>
         <p className="mt-4 text-sm text-muted-foreground">
           Private dashboard for managing the work archive.
@@ -78,7 +78,7 @@ function AuthPage() {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-foreground outline-none transition-all focus:border-primary/60 focus:bg-white/[0.08] focus:shadow-[0_0_20px_rgba(255,107,0,0.2)]"
+            className="mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-foreground outline-none transition-all focus:border-primary/60 focus:bg-white/[0.08] focus:shadow-[0_0_20px_rgba(168,85,247,0.2)]"
             placeholder="admin@alphamedia.studio"
           />
         </div>
@@ -94,14 +94,14 @@ function AuthPage() {
             autoComplete={mode === "signin" ? "current-password" : "new-password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-foreground outline-none transition-all focus:border-primary/60 focus:bg-white/[0.08] focus:shadow-[0_0_20px_rgba(255,107,0,0.2)]"
+            className="mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-foreground outline-none transition-all focus:border-primary/60 focus:bg-white/[0.08] focus:shadow-[0_0_20px_rgba(168,85,247,0.2)]"
             placeholder="••••••••"
           />
         </div>
         <button
           type="submit"
           disabled={busy}
-          className="w-full rounded-full bg-primary px-5 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-primary-foreground shadow-[0_0_20px_rgba(255,107,0,0.4)] transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,107,0,0.7)] disabled:opacity-60"
+          className="w-full rounded-full bg-primary px-5 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-primary-foreground shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(168,85,247,0.7)] disabled:opacity-60"
         >
           {busy ? "Working…" : mode === "signin" ? "Sign in" : "Create account"}
         </button>

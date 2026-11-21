@@ -69,14 +69,14 @@ function WorkPage() {
   return (
     <div className="mx-auto max-w-[1600px] px-5 py-16 md:px-10">
       <Reveal>
-        <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 shadow-[0_0_15px_rgba(255,107,0,0.2)]">
+        <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 shadow-[0_0_15px_rgba(168,85,247,0.2)]">
           <span className="size-2 rounded-full bg-primary animate-pulse" />
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
             Portfolio — {projects.length} projects
           </p>
         </div>
-        <h1 className="mt-6 font-display text-6xl leading-[0.9] md:text-[8rem]">
-          Selected <span className="italic text-primary drop-shadow-[0_0_20px_rgba(255,107,0,0.5)]">work</span>
+        <h1 className="mt-6 font-display text-5xl leading-[0.9] sm:text-6xl md:text-[8rem]">
+          Selected <span className="italic text-primary drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]">work</span>
         </h1>
       </Reveal>
 

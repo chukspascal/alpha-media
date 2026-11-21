@@ -68,7 +68,7 @@ export function CustomCursor() {
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[100] hidden md:block">
       <div
         ref={dot}
-        className="fixed left-0 top-0 size-2 rounded-full bg-primary shadow-[0_0_10px_rgba(255,107,0,0.8)] transition-[opacity] duration-200"
+        className="fixed left-0 top-0 size-2 rounded-full bg-primary shadow-[0_0_10px_rgba(168,85,247,0.8)] transition-[opacity] duration-200"
         style={{ opacity: active ? 0 : 1 }}
       />
       <div
@@ -77,10 +77,10 @@ export function CustomCursor() {
         style={{
           width: size,
           height: size,
-          backgroundColor: label ? "var(--color-primary)" : active ? "rgba(255, 107, 0, 0.15)" : "transparent",
+          backgroundColor: label ? "var(--color-primary)" : active ? "rgba(168,85,247, 0.15)" : "transparent",
           borderColor: label || active ? "var(--color-primary)" : "rgba(255, 255, 255, 0.3)",
           borderWidth: "1px",
-          boxShadow: label || active ? "0 0 25px rgba(255, 107, 0, 0.4)" : "none",
+          boxShadow: label || active ? "0 0 25px rgba(168,85,247, 0.4)" : "none",
           backdropFilter: active ? "blur(4px)" : "none",
         }}
       >

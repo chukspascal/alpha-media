@@ -6,7 +6,7 @@ export type CurtainHandle = {
   play: (mid: () => Promise<void> | void) => Promise<void>;
 };
 
-/** Layered orange/black wipe for route transitions. Always mounted, hidden. */
+/** Layered purple/black wipe for route transitions. Always mounted, hidden. */
 export const Curtain = forwardRef<CurtainHandle>(function Curtain(_, ref) {
   const root = useRef<HTMLDivElement>(null);
   const busy = useRef(false);

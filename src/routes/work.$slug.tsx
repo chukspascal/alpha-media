@@ -41,6 +41,12 @@ export const Route = createFileRoute("/work/$slug")({
         { name: "description", content: project.blurb },
         { property: "og:title", content: title },
         { property: "og:description", content: project.blurb },
+        ...(project.cover
+          ? [
+              { property: "og:image", content: project.cover },
+              { name: "twitter:image", content: project.cover },
+            ]
+          : []),
       ],
     };
   },
@@ -90,13 +96,13 @@ function CaseStudy() {
         </Link>
 
         <Reveal className="mt-8">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 shadow-[0_0_15px_rgba(255,107,0,0.2)]">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 shadow-[0_0_15px_rgba(168,85,247,0.2)]">
             <span className="size-2 rounded-full bg-primary animate-pulse" />
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
               {project.category} · {project.year}
             </p>
           </div>
-          <h1 className="mt-6 font-display text-6xl leading-[0.9] md:text-[7.5rem]">
+          <h1 className="mt-6 font-display text-5xl leading-[0.9] sm:text-6xl md:text-[7.5rem]">
             {project.title}
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-muted-foreground">{project.blurb}</p>
@@ -161,7 +167,7 @@ function CaseStudy() {
                 key={r.label}
                 className="border-b border-white/10 p-8 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0"
               >
-                <p className="font-display text-6xl text-primary drop-shadow-[0_0_15px_rgba(255,107,0,0.4)]">{r.value}</p>
+                <p className="font-display text-6xl text-primary drop-shadow-[0_0_15px_rgba(168,85,247,0.4)]">{r.value}</p>
                 <p className="mt-2 text-xs uppercase tracking-[0.22em] text-muted-foreground">
                   {r.label}
                 </p>
@@ -195,15 +201,15 @@ function CaseStudy() {
           <Link
             to="/work/$slug"
             params={{ slug: next.slug }}
-            className="glass-panel group flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-primary/30 p-8 md:p-14 shadow-[0_0_35px_rgba(255,107,0,0.15)] transition-all hover:border-primary/60 hover:shadow-[0_0_50px_rgba(255,107,0,0.3)]"
+            className="glass-panel group flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-primary/30 p-8 md:p-14 shadow-[0_0_35px_rgba(168,85,247,0.15)] transition-all hover:border-primary/60 hover:shadow-[0_0_50px_rgba(168,85,247,0.3)]"
           >
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
                 Next project
               </p>
-              <p className="mt-3 font-display text-5xl md:text-7xl text-foreground">{next.title}</p>
+              <p className="mt-3 font-display text-4xl sm:text-5xl md:text-7xl text-foreground">{next.title}</p>
             </div>
-            <div className="flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[0_0_20px_rgba(255,107,0,0.5)] transition-transform duration-300 group-hover:scale-110">
+            <div className="flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-transform duration-300 group-hover:scale-110">
               <ArrowRight className="size-8" />
             </div>
           </Link>

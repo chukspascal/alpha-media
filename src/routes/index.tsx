@@ -4,11 +4,11 @@ import { ArrowUpRight } from "lucide-react";
 import { EASE, ScrollTrigger, SplitText, gsap, prefersReducedMotion, useIsomorphicLayoutEffect } from "@/lib/gsap";
 import { whenIntroDone } from "@/lib/smooth";
 import { listPublishedProjects } from "@/lib/projects.functions";
+import type { ProjectRecord } from "@/lib/project-types";
 import { HorizontalWork } from "@/components/site/horizontal-work";
 import { Marquee } from "@/components/site/marquee";
 import { Reveal } from "@/components/site/reveal";
 import { Magnetic } from "@/components/site/magnetic";
-import { Cube } from "@/components/site/cube";
 
 export const Route = createFileRoute("/")({
   loader: () => listPublishedProjects(),
@@ -25,17 +25,17 @@ export const Route = createFileRoute("/")({
   ),
   head: () => ({
     meta: [
-      { title: "Alph@ Media — Graphic Design Studio" },
+      { title: "Alph@ Media — Principal-Led Creative & Digital Agency" },
       {
         name: "description",
         content:
-          "Independent graphic design studio building loud brand identities, packaging, posters and motion for ambitious clients.",
+          "Principal-led creative and digital agency crafting brand architecture, digital flagships, and motion systems for ambitious companies worldwide.",
       },
-      { property: "og:title", content: "Alph@ Media — Graphic Design Studio" },
+      { property: "og:title", content: "Alph@ Media — Principal-Led Creative & Digital Agency" },
       {
         property: "og:description",
         content:
-          "Independent graphic design studio building loud brand identities, packaging, posters and motion for ambitious clients.",
+          "Principal-led creative and digital agency crafting brand architecture, digital flagships, and motion systems for ambitious companies worldwide.",
       },
     ],
   }),
@@ -43,19 +43,19 @@ export const Route = createFileRoute("/")({
 });
 
 const stats = [
-  { value: "4+ yrs", label: "Professional experience" },
-  { value: "UI", label: "Design & web development" },
-  { value: "Print", label: "Graphics & brand kits" },
-  { value: "Events", label: "Media coverage" },
+  { value: "4+ yrs", label: "Studio track record" },
+  { value: "$50k+", label: "Flagship engagements" },
+  { value: "Global", label: "Lagos · London · Remote" },
+  { value: "100%", label: "Principal-led craft" },
 ];
 
-function Hero() {
+function Hero({ featured }: { featured?: ProjectRecord | undefined }) {
   const section = useRef<HTMLElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const headline = useRef<HTMLHeadingElement>(null);
   const eyebrow = useRef<HTMLParagraphElement>(null);
   const sub = useRef<HTMLDivElement>(null);
-  const cubeWrap = useRef<HTMLDivElement>(null);
+  const featuredCard = useRef<HTMLDivElement>(null);
   const tilt = useRef<{ x: (v: number) => void; y: (v: number) => void } | null>(null);
 
   useIsomorphicLayoutEffect(() => {
@@ -67,19 +67,18 @@ function Hero() {
     let safetyTimer: ReturnType<typeof setTimeout> | undefined;
     const h1 = headline.current;
 
-    // Playful: hovered glyphs jump.
     const onOver = (e: MouseEvent) => {
       const ch = (e.target as HTMLElement).closest?.(".hero-char");
       if (!ch) return;
       gsap.fromTo(
         ch,
         { y: 0 },
-        { y: -30, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out", overwrite: "auto" },
+        { y: -18, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out", overwrite: "auto" },
       );
     };
 
     const revealAll = () => {
-      gsap.set([eyebrow.current, sub.current, cubeWrap.current].filter(Boolean), {
+      gsap.set([eyebrow.current, sub.current, featuredCard.current].filter(Boolean), {
         autoAlpha: 1,
         y: 0,
         yPercent: 0,
@@ -91,62 +90,51 @@ function Hero() {
       }
     };
 
-    // Wait for the preloader on first visit so the entrance isn't missed.
     const off = whenIntroDone(() => {
       try {
         ctx = gsap.context(() => {
-          // Entrance: eyebrow → split headline chars → sub row → cube.
           const tl = gsap.timeline({ defaults: { ease: EASE } });
           tl.fromTo(
             eyebrow.current,
-            { y: 20, autoAlpha: 0 },
-            { y: 0, autoAlpha: 1, duration: 0.8 },
+            { y: 16, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.7 },
           );
           if (headline.current) {
             split = new SplitText(headline.current, { type: "chars", charsClass: "hero-char" });
             tl.fromTo(
               split.chars,
-              { yPercent: 70, autoAlpha: 0, rotate: 5 },
-              { yPercent: 0, autoAlpha: 1, rotate: 0, duration: 1, stagger: 0.022 },
-              "-=0.5",
+              { yPercent: 60, autoAlpha: 0 },
+              { yPercent: 0, autoAlpha: 1, duration: 0.9, stagger: 0.012 },
+              "-=0.45",
             );
           }
           tl.fromTo(
             sub.current,
-            { y: 32, autoAlpha: 0 },
-            { y: 0, autoAlpha: 1, duration: 0.9 },
-            "-=0.7",
+            { y: 24, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.8 },
+            "-=0.6",
           );
-          tl.fromTo(
-            cubeWrap.current,
-            { autoAlpha: 0, scale: 0.7 },
-            { autoAlpha: 1, scale: 1, duration: 1.1 },
-            "-=0.8",
-          );
+          if (featuredCard.current) {
+            tl.fromTo(
+              featuredCard.current,
+              { y: 28, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: 0.9 },
+              "-=0.7",
+            );
+          }
 
-          // Scroll away: gentle parallax drift without turning into a blank black void.
           gsap.to(content.current, {
-            y: 40,
-            ease: "none",
-            scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true },
-          });
-          // Cube drifts gently with opacity fade — no section collisions.
-          gsap.to(cubeWrap.current, {
-            y: -40,
-            autoAlpha: 0.4,
+            y: 24,
             ease: "none",
             scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true },
           });
 
-          // Refresh ScrollTriggers once layout is fully prepared
           ScrollTrigger.refresh();
         }, root);
       } catch {
-        // GSAP context failed — make content visible as fallback.
         revealAll();
       }
 
-      // Mouse tilt on the headline — outside the context (quickTos can't revert).
       if (headline.current) {
         tilt.current = {
           x: gsap.quickTo(headline.current, "x", { duration: 0.7, ease: "power3" }),
@@ -155,7 +143,6 @@ function Hero() {
       }
       h1?.addEventListener("mouseover", onOver);
 
-      // Safety net: if GSAP doesn't make things visible within 3s, force-show.
       safetyTimer = setTimeout(revealAll, 3000);
       ScrollTrigger.refresh();
     });
@@ -177,8 +164,8 @@ function Hero() {
         const fn = tilt.current;
         const rect = e.currentTarget.getBoundingClientRect();
         if (!fn) return;
-        fn.x(((e.clientX - (rect.left + rect.width / 2)) / rect.width) * 24);
-        fn.y(((e.clientY - (rect.top + rect.height / 2)) / rect.height) * 14);
+        fn.x(((e.clientX - (rect.left + rect.width / 2)) / rect.width) * 14);
+        fn.y(((e.clientY - (rect.top + rect.height / 2)) / rect.height) * 8);
       }}
       onMouseLeave={() => {
         tilt.current?.x(0);
@@ -186,53 +173,117 @@ function Hero() {
       }}
       className="relative overflow-hidden border-b border-white/10"
     >
-      <div ref={content} className="relative z-10 mx-auto max-w-[1600px] px-5 pt-8 pb-16 md:px-10 md:pt-12 md:pb-24">
-        <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 shadow-[0_0_15px_rgba(255,107,0,0.2)]">
-          <span className="size-2 rounded-full bg-primary animate-pulse" />
-          <p ref={eyebrow} className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-            Graphic design studio — Lagos / remote
-          </p>
-        </div>
+      <div
+        ref={content}
+        className="relative z-10 mx-auto max-w-[1600px] px-5 pt-10 pb-14 md:px-10 md:pt-16 md:pb-20"
+      >
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-12">
+          <div className="lg:col-span-7">
+            <div className="inline-flex items-center gap-2.5 border border-white/15 bg-white/[0.03] px-3.5 py-1.5">
+              <span className="size-1.5 rounded-full bg-primary animate-pulse" />
+              <p
+                ref={eyebrow}
+                className="text-[11px] font-semibold uppercase tracking-[0.26em] text-primary"
+              >
+                Principal-led creative agency — Lagos / Global
+              </p>
+            </div>
 
-        <h1
-          ref={headline}
-          className="mt-6 md:mt-8 font-display text-[16vw] leading-[0.85] tracking-tight md:text-[11vw] lg:text-[9vw]"
-        >
-          Alph<span className="text-primary drop-shadow-[0_0_25px_rgba(255,107,0,0.6)]">@</span>
-          <br />
-          <span className="italic text-foreground/90">Media</span>
-        </h1>
+            <h1
+              ref={headline}
+              className="mt-6 font-display text-5xl leading-[0.92] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.25rem] xl:text-[6.25rem]"
+            >
+              Brand architecture
+              <br />
+              &amp; digital <span className="italic text-primary">flagships.</span>
+            </h1>
 
-        <div
-          ref={sub}
-          className="mt-10 md:mt-16 grid gap-8 border-t border-white/10 pt-8 md:grid-cols-[1.3fr_1fr] md:items-center"
-        >
-          <p className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            I&apos;m <span className="font-medium text-foreground">Alexx</span> — a web designer and visual creative with 4+ years turning ideas into
-            engaging digital and visual experiences: UI design, web development, graphics and event
-            media coverage.
-          </p>
+            <div ref={sub} className="mt-8 space-y-8 border-t border-white/10 pt-7">
+              <p className="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg md:text-xl">
+                Founded by <span className="font-medium text-foreground">Alexx</span>. We partner
+                with ambitious companies to build unmistakable brand systems, high-converting web
+                flagships, and motion direction that command category authority.
+              </p>
 
-          <div className="flex flex-wrap items-center gap-4 md:justify-end">
-            <Magnetic to="/work">See the work</Magnetic>
-            <Magnetic to="/contact" variant="outline">
-              Start a project
-            </Magnetic>
+              <div className="flex flex-wrap items-center gap-4">
+                <Magnetic to="/contact">Book a discovery call</Magnetic>
+                <Magnetic to="/work" variant="outline">
+                  Selected work
+                </Magnetic>
+              </div>
+            </div>
+          </div>
+
+          <div ref={featuredCard} className="lg:col-span-5">
+            {featured ? (
+              <Link
+                to="/work/$slug"
+                params={{ slug: featured.slug }}
+                data-cursor="View"
+                className="glass-card-interactive group block overflow-hidden"
+              >
+                <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                  <span className="text-primary">01 / Featured Case Study</span>
+                  <span>{featured.year}</span>
+                </div>
+                <div className="relative aspect-[4/3] overflow-hidden bg-black/40">
+                  <img
+                    src={featured.cover}
+                    alt={`${featured.title} — ${featured.category}`}
+                    width={featured.width}
+                    height={featured.height}
+                    className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                </div>
+                <div className="flex items-center justify-between gap-4 border-t border-white/10 px-5 py-4">
+                  <div>
+                    <p className="font-display text-2xl leading-none text-foreground transition-colors group-hover:text-primary">
+                      {featured.title}
+                    </p>
+                    <p className="mt-1.5 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                      {featured.client || featured.category}
+                    </p>
+                  </div>
+                  <span className="flex size-9 shrink-0 items-center justify-center border border-white/15 bg-white/[0.04] text-foreground transition-colors group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
+                    <ArrowUpRight className="size-4" />
+                  </span>
+                </div>
+              </Link>
+            ) : (
+              <div className="glass-card p-6 sm:p-8">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
+                  01 / Studio Capabilities
+                </p>
+                <p className="mt-4 font-display text-3xl leading-tight text-foreground">
+                  Identity systems, digital flagships, and motion built in one room.
+                </p>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  From positioning and custom typography to production React engineering.
+                </p>
+              </div>
+            )}
           </div>
         </div>
-      </div>
 
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-16 top-10 hidden size-96 rounded-full bg-primary/20 blur-[130px] md:block"
-      />
-
-      {/* 3D Glass Cube: Positioned in upper right area with dedicated breathing room */}
-      <div
-        ref={cubeWrap}
-        className="pointer-events-none absolute top-12 right-8 lg:top-20 lg:right-24 hidden md:block z-0"
-      >
-        <Cube size={170} />
+        <div className="mt-12 grid grid-cols-2 gap-6 border-t border-white/10 pt-6 text-[11px] uppercase tracking-[0.2em] md:grid-cols-4">
+          <div>
+            <p className="text-muted-foreground">Availability</p>
+            <p className="mt-1 font-semibold text-foreground">Booking Q1 / Q2</p>
+          </div>
+          <div>
+            <p className="text-muted-foreground">Core Focus</p>
+            <p className="mt-1 font-semibold text-foreground">Brand · Web · Motion</p>
+          </div>
+          <div>
+            <p className="text-muted-foreground">Regions</p>
+            <p className="mt-1 font-semibold text-foreground">Africa · Europe · US</p>
+          </div>
+          <div>
+            <p className="text-muted-foreground">Engagement</p>
+            <p className="mt-1 font-semibold text-primary">Principal-Led</p>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -243,7 +294,7 @@ function Home() {
 
   return (
     <div>
-      <Hero />
+      <Hero featured={projects[0]} />
 
       <Marquee
         items={["Brand identity", "Packaging", "Posters", "Motion", "Editorial", "Illustration"]}
@@ -252,48 +303,50 @@ function Home() {
 
       <HorizontalWork items={projects} />
 
-      {/* Glass Stats Section */}
-      <section className="mx-auto max-w-[1600px] px-5 py-12 md:px-10">
-        <div className="glass-panel overflow-hidden rounded-3xl border border-white/10 p-8 shadow-2xl md:p-14">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {stats.map((s, i) => (
-              <Reveal key={s.label} delay={i * 0.08}>
-                <p className="font-display text-5xl leading-none text-foreground drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] md:text-7xl">
-                  {s.value}
-                </p>
-                <p className="mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-                  {s.label}
-                </p>
-              </Reveal>
-            ))}
-          </div>
+      {/* Architectural Stats Grid */}
+      <section className="border-b border-white/10">
+        <div className="mx-auto grid max-w-[1600px] grid-cols-2 divide-y divide-white/10 md:grid-cols-4 md:divide-x md:divide-y-0">
+          {stats.map((s, i) => (
+            <Reveal key={s.label} delay={i * 0.06} className="px-5 py-10 md:px-10 md:py-14">
+              <p className="font-display text-5xl leading-none text-foreground md:text-6xl">
+                {s.value}
+              </p>
+              <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
+                {s.label}
+              </p>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      {/* Creative Surfaces */}
-      <section className="mx-auto max-w-[1600px] px-5 py-16 md:px-10">
-        <div className="glass-card rounded-3xl p-8 md:p-16">
+      {/* Studio Thesis */}
+      <section className="mx-auto max-w-[1600px] px-5 py-20 md:px-10">
+        <div className="glass-card p-8 md:p-16">
           <div className="grid gap-10 md:grid-cols-[1fr_1fr]">
             <Reveal>
+              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">
+                The studio model
+              </p>
               <h2 className="font-display text-5xl leading-[0.95] md:text-7xl">
-                One creative, <span className="italic text-primary drop-shadow-[0_0_15px_rgba(255,107,0,0.4)]">many</span> surfaces.
+                Strategy, craft, and <span className="italic text-primary">code</span> under one roof.
               </h2>
             </Reveal>
             <Reveal delay={0.1} className="space-y-5 text-lg leading-relaxed">
               <p className="text-foreground/90">
-                Canva, Photoshop, Lightroom and CorelDRAW for the visuals; Figma and code for the
-                interfaces. Same eye for detail whether it lands on a screen, a banner or a feed.
+                Most agencies split brand strategy, visual identity, and web engineering across
+                disconnected teams. We keep them in one room—so the conviction in the deck ships
+                intact to the browser, the packaging line, and the launch film.
               </p>
               <p className="text-muted-foreground">
-                I work with brands, businesses and individuals — from full websites and UI systems to
-                social creatives and event media coverage.
+                Every engagement is principal-led from discovery to final handover, built for
+                founders and teams who treat design as a competitive moat.
               </p>
               <div className="pt-2">
                 <Link
                   to="/services"
-                  className="glass-pill inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-foreground transition-all hover:border-primary/50 hover:text-primary"
+                  className="glass-pill inline-flex items-center gap-2 px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-foreground transition-all hover:border-primary/50 hover:text-primary"
                 >
-                  How we work <ArrowUpRight className="size-4" />
+                  Scope &amp; investment <ArrowUpRight className="size-4" />
                 </Link>
               </div>
             </Reveal>
@@ -303,7 +356,7 @@ function Home() {
 
       {/* CTA Glass Banner */}
       <section className="mx-auto max-w-[1600px] px-5 py-12 md:px-10">
-        <div className="glass-panel relative overflow-hidden rounded-3xl border border-primary/30 p-10 shadow-[0_0_40px_rgba(255,107,0,0.15)] md:p-16">
+        <div className="glass-panel relative overflow-hidden rounded-3xl border border-primary/30 p-10 shadow-[0_0_40px_rgba(168,85,247,0.15)] md:p-16">
           <div className="pointer-events-none absolute -right-20 -top-20 size-80 rounded-full bg-primary/20 blur-[100px]" />
           <div className="relative z-10 flex flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
             <h2 className="font-display text-5xl leading-[0.9] md:text-8xl">

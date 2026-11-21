@@ -17,11 +17,11 @@ export function Footer() {
       <div className="mx-auto grid max-w-[1600px] gap-10 px-5 py-16 md:grid-cols-3 md:px-10">
         <div>
           <p className="font-display text-4xl leading-none">
-            Alph<span className="text-primary drop-shadow-[0_0_12px_rgba(255,107,0,0.6)]">@</span> Media
+            Alph<span className="text-primary drop-shadow-[0_0_12px_rgba(168,85,247,0.6)]">@</span> Media
           </p>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            Independent graphic design studio. Brand identity, print, packaging and motion for
-            people who refuse to blend in.
+            Principal-led creative &amp; digital agency. Brand architecture, digital flagships,
+            and motion systems for ambitious companies.
           </p>
         </div>
         <div>

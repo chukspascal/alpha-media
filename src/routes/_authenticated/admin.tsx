@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { BioEditor } from "@/components/admin/bio-editor";
+import { InquiriesInbox } from "@/components/admin/inquiries-inbox";
 import {
   deleteProject,
   ensureAdminRole,
@@ -91,7 +92,7 @@ function AdminPage() {
   const [status, setStatus] = useState<StatusFilter>("all");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [dirty, setDirty] = useState(false);
-  const [tab, setTab] = useState<"projects" | "bio">("projects");
+  const [tab, setTab] = useState<"projects" | "inquiries" | "bio">("projects");
 
   useEffect(() => {
     grantAdmin({ data: undefined }).catch(() => undefined);
@@ -269,7 +270,7 @@ function AdminPage() {
             Studio <span className="italic text-primary">dashboard</span>
           </h1>
           <div className="mt-5 flex gap-2">
-            {(["projects", "bio"] as const).map((t) => (
+            {(["projects", "inquiries", "bio"] as const).map((t) => (
               <button
                 key={t}
                 type="button"
@@ -279,7 +280,7 @@ function AdminPage() {
                   tab === t ? "bg-foreground text-background" : "hover:bg-accent",
                 )}
               >
-                {t === "projects" ? "Projects" : "Bio"}
+                {t === "projects" ? "Projects" : t === "inquiries" ? "Inquiries" : "Bio"}
               </button>
             ))}
           </div>
@@ -700,6 +701,8 @@ function AdminPage() {
         </form>
       </div>
         </>
+      ) : tab === "inquiries" ? (
+        <InquiriesInbox />
       ) : (
         <BioEditor />
       )}
