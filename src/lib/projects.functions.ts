@@ -23,18 +23,23 @@ const projectInput = z.object({
 });
 
 export const listPublishedProjects = createServerFn({ method: "GET" }).handler(async () => {
-  const { createPublicClient, mapRow } = await import("./projects.server");
-  const { data, error } = await createPublicClient()
-    .from("projects")
-    .select("*")
-    .eq("published", true)
-    .order("sort_order", { ascending: true });
-  // Pre-migration: table missing → empty archive instead of a 500.
-  if (error) {
-    if (error.code === "PGRST205" || error.code === "42P01") return [];
-    throw error;
+  try {
+    const { createPublicClient, mapRow } = await import("./projects.server");
+    const { data, error } = await createPublicClient()
+      .from("projects")
+      .select("*")
+      .eq("published", true)
+      .order("sort_order", { ascending: true });
+    // Pre-migration: table missing → empty archive instead of a 500.
+    if (error) {
+      if (error.code === "PGRST205" || error.code === "42P01") return [];
+      throw error;
+    }
+    return (data ?? []).map((row) => mapRow(row));
+  } catch (err) {
+    console.error("[listPublishedProjects] fallback to empty:", err);
+    return [];
   }
-  return (data ?? []).map((row) => mapRow(row));
 });
 
 export const ensureAdminRole = createServerFn({ method: "POST" })

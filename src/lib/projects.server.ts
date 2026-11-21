@@ -8,11 +8,33 @@ type Row = Database["public"]["Tables"]["projects"]["Row"];
 export const ADMIN_EMAIL = "alexxalphatv@gmail.com";
 
 export function createPublicClient() {
-  return createClient<Database>(
-    process.env["SUPABASE_URL"]!,
-    process.env["SUPABASE_PUBLISHABLE_KEY"]!,
-    { auth: { storage: undefined, persistSession: false, autoRefreshToken: false } },
-  );
+  const url = process.env["SUPABASE_URL"] || process.env["VITE_SUPABASE_URL"];
+  const key =
+    process.env["SUPABASE_PUBLISHABLE_KEY"] || process.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
+  if (!url || !key) {
+    throw new Error("Missing SUPABASE_URL or SUPABASE_PUBLISHABLE_KEY environment variable.");
+  }
+  return createClient<Database>(url, key, {
+    global: {
+      fetch: (input, init) => {
+        const headers = new Headers(
+          typeof Request !== "undefined" && input instanceof Request ? input.headers : undefined,
+        );
+        if (init?.headers) {
+          new Headers(init.headers).forEach((v, k) => headers.set(k, v));
+        }
+        if (
+          (key.startsWith("sb_publishable_") || key.startsWith("sb_secret_")) &&
+          headers.get("Authorization") === `Bearer ${key}`
+        ) {
+          headers.delete("Authorization");
+        }
+        headers.set("apikey", key);
+        return fetch(input, { ...init, headers });
+      },
+    },
+    auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
+  });
 }
 
 export function mapRow(row: Row, resolveImages = true): ProjectRecord {

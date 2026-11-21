@@ -6,19 +6,24 @@ import { DEFAULT_PROFILE, mapProfileRow, type SiteProfile } from "./profile-type
 /** Public bio — falls back to defaults when the table/row doesn't exist yet. */
 export const getProfile = createServerFn({ method: "GET" }).handler(
   async (): Promise<SiteProfile> => {
-    const { createPublicClient } = await import("./projects.server");
-    const { data, error } = await createPublicClient()
-      .from("site_profile")
-      .select("*")
-      .eq("id", 1)
-      .maybeSingle();
-    if (error) {
-      // Pre-migration: PostgREST schema cache doesn't know the table yet.
-      if (error.code === "PGRST205" || error.code === "42P01") return DEFAULT_PROFILE;
-      throw error;
+    try {
+      const { createPublicClient } = await import("./projects.server");
+      const { data, error } = await createPublicClient()
+        .from("site_profile")
+        .select("*")
+        .eq("id", 1)
+        .maybeSingle();
+      if (error) {
+        // Pre-migration: PostgREST schema cache doesn't know the table yet.
+        if (error.code === "PGRST205" || error.code === "42P01") return DEFAULT_PROFILE;
+        throw error;
+      }
+      if (!data) return DEFAULT_PROFILE;
+      return mapProfileRow(data);
+    } catch (err) {
+      console.error("[getProfile] fallback to DEFAULT_PROFILE:", err);
+      return DEFAULT_PROFILE;
     }
-    if (!data) return DEFAULT_PROFILE;
-    return mapProfileRow(data);
   },
 );
 
